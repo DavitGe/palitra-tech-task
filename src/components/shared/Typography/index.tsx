@@ -30,6 +30,7 @@ const Typography: React.FC<ITypographyProps> = ({
     textAlign: align,
     fontFamily:
       font === "Poppins" ? "Poppins, sans-serif" : "FiraGO, sans-serif",
+    letterSpacing: "0.03em",
     ...style,
   };
 
