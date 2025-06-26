@@ -1,8 +1,18 @@
-// Import fonts
-@import "./assets/fonts/index.scss";
+// Import variables
+@use "./variables.scss" as *;
 
-//Colors
+// Import fonts
+@use "./assets/fonts/index.scss";
+
+//Colors ------------------
 $main-color: #ea454c;
+// -- text colors
+$text-primary: #030303;
+$text-label: #181818;
+$text-placeholder: #636364;
+$text-desc: #595959;
+// -- container colors
+$container-border: rgba(0, 0, 0, 0.25);
 
 // Base font family
 body {
@@ -11,4 +21,5 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.03em;
 }

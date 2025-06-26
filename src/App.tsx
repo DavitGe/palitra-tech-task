@@ -1,5 +1,7 @@
+import Authorization from "./pages/Authorization";
+
 function App() {
-  return <>Hello World</>;
+  return <Authorization />;
 }
 
 export default App;
