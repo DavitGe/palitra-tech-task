@@ -21,8 +21,8 @@ const Typography: React.FC<ITypographyProps> = ({
   color = "primary",
   align = "left",
   font = "Poppins",
-  clickable = false,
   style,
+  clickable = false,
   ...props
 }) => {
   const typographyStyle: React.CSSProperties = {
