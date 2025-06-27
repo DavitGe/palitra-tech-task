@@ -1,0 +1,41 @@
+.message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 350px;
+  max-width: 450px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideInFromTop 0.3s ease-out;
+
+  .message-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &.success {
+    background-color: #dcfce7;
+    border-color: #22c55e;
+  }
+
+  &.error {
+    background-color: #fef2f2;
+    border-color: #ef4444;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}

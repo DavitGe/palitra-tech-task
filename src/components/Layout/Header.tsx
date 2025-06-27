@@ -6,7 +6,6 @@ import {
   logoutWithRedirect,
 } from "../../components/authorization/utils/auth";
 import type { UserInfo } from "../../components/authorization/types/auth.types";
-import Button from "../shared/Button/Button";
 import Typography from "../shared/Typography";
 
 const Header = () => {

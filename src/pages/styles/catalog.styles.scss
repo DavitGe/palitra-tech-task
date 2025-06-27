@@ -1,0 +1,116 @@
+.catalog-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.catalog-content {
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .loading-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin: 2rem 0;
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e5e7eb;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    span {
+      color: #6b7280;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  .no-more-data {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    border: 2px dashed #e5e7eb;
+  }
+
+  // Loading and error states
+  > div {
+    &:first-child {
+      text-align: center;
+      padding: 4rem 2rem;
+      font-size: 1.2rem;
+      color: #6b7280;
+
+      &:has-text("Loading") {
+        color: #3b82f6;
+      }
+
+      &:has-text("Error") {
+        color: #ef4444;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+// Animation for new products loading
+.products-grid > * {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Smooth transitions for grid changes
+.products-grid {
+  transition: all 0.3s ease;
+}

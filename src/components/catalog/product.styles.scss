@@ -1,0 +1,44 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  gap: 8px;
+  .product-image {
+    width: 200px;
+    height: 260px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .product-info-price {
+    color: #6c46aa !important;
+  }
+  .product-image-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 260px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+  .product-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+// Loading spinner animation
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
