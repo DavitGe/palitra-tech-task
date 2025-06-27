@@ -16,7 +16,7 @@ const TextInput: React.FC<ITextInputProps> = ({
   return (
     <div {...bodyProps} className={`text-input-container ${className}`}>
       {label && <label htmlFor={name}>{label}</label>}
-      <input {...props} className={`text-input ${className}`} />
+      <input {...props} name={name} className={`text-input ${className}`} />
     </div>
   );
 };
