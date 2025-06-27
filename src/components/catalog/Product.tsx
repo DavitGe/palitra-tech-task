@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Typography from "../shared/Typography";
 import BrokenImage from "../shared/icons/BrokenImage";
 import Message from "../shared/Message";
@@ -32,10 +32,13 @@ const Product: React.FC<IProductProps> = ({
     isVisible: false,
   });
 
+  const handleCloseMessage = useCallback(() => {
+    setMessage((prev) => ({ ...prev, isVisible: false }));
+  }, []);
+
   function handleAddToCart() {
     if (isAddingToCart) return; // Prevent multiple clicks
 
-    console.log("add to cart", productId);
     setIsAddingToCart(true);
 
     $api("https://dummyjson.com/carts/1", {
@@ -63,10 +66,6 @@ const Product: React.FC<IProductProps> = ({
         setIsAddingToCart(false);
       });
   }
-
-  const handleCloseMessage = () => {
-    setMessage((prev) => ({ ...prev, isVisible: false }));
-  };
 
   return (
     <>

@@ -37,7 +37,6 @@ const SignUpForm = () => {
       const result = await signInHandler(credentials);
 
       if (result.success) {
-        console.log("Login successful:", result.user);
         // Navigate to catalog page instead of reloading
         navigate("/app/catalog");
       } else {
