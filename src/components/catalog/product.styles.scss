@@ -40,6 +40,57 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+
+    &:hover:not(.cart-button--disabled) {
+      background-color: #f0f0f0;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      svg {
+        color: #6c46aa !important;
+        transform: scale(1.05);
+      }
+    }
+
+    &:active:not(.cart-button--disabled) {
+      transform: scale(0.98);
+      background-color: #e0e0e0;
+
+      svg {
+        color: #5a3a8a !important;
+      }
+    }
+
+    &.cart-button--disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    &.cart-button--adding {
+      background-color: #f8f9fa;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    svg {
+      transition: all 0.2s ease-in-out;
+    }
+  }
 }
 
 // Loading spinner animation

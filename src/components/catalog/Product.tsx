@@ -132,7 +132,9 @@ const Product: React.FC<IProductProps> = ({
             {price?.toFixed(2)}₾
           </Typography>
           <div
-            style={{ cursor: isAddingToCart ? "default" : "pointer" }}
+            className={`cart-button ${
+              isAddingToCart ? "cart-button--adding cart-button--disabled" : ""
+            }`}
             onClick={handleAddToCart}
           >
             {isAddingToCart ? (
