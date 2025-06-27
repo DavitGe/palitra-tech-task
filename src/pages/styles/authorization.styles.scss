@@ -28,9 +28,6 @@ $mobile-breakpoint: 700px;
 
   .image-container {
     flex: 1;
-    background-image: url(/images/auth-img.jpg);
-    background-size: cover;
-    background-position: center;
 
     // Hide image on mobile
     @media (max-width: #{$mobile-breakpoint - 1px}) {

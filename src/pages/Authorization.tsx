@@ -1,4 +1,5 @@
 import SignUpForm from "../components/authorization/SignUpForm";
+import BackgroundImage from "../components/shared/BackgroundImage";
 import "./styles/authorization.styles.scss";
 
 const Authorization = () => {
@@ -9,7 +10,12 @@ const Authorization = () => {
           <SignUpForm />
         </div>
       </div>
-      <div className="image-container" />
+      <BackgroundImage
+        src="/images/auth-img.jpg"
+        className="image-container"
+        loadingSpinnerColor="#6c46aa"
+        loadingSpinnerSize={50}
+      />
     </div>
   );
 };

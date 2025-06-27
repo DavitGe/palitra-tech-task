@@ -1,0 +1,33 @@
+.image-container {
+  position: relative;
+  display: inline-block;
+
+  .image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .image-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+    z-index: 1;
+  }
+
+  &.image-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    min-height: 100px;
+    min-width: 100px;
+  }
+}

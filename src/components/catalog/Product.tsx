@@ -21,6 +21,7 @@ const Product: React.FC<IProductProps> = ({
   productId,
 }) => {
   const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -35,6 +36,15 @@ const Product: React.FC<IProductProps> = ({
   const handleCloseMessage = useCallback(() => {
     setMessage((prev) => ({ ...prev, isVisible: false }));
   }, []);
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  const handleImageError = () => {
+    setImageLoading(false);
+    setImageError(true);
+  };
 
   function handleAddToCart() {
     if (isAddingToCart) return; // Prevent multiple clicks
@@ -76,13 +86,23 @@ const Product: React.FC<IProductProps> = ({
           </div>
         ) : (
           <div className="product-image">
+            {imageLoading && (
+              <div className="product-image-loading">
+                <LoadingSpinner color="#6c46aa" size={30} />
+              </div>
+            )}
             <img
               src={image}
               alt={name}
-              onError={() => setImageError(true)}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
               width={200}
               height={260}
-              style={{ objectFit: "cover" }}
+              style={{
+                objectFit: "cover",
+                opacity: imageLoading ? 0 : 1,
+                transition: "opacity 0.3s ease-in-out",
+              }}
             />
           </div>
         )}

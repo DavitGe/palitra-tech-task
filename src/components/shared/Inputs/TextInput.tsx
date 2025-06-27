@@ -10,13 +10,26 @@ const TextInput: React.FC<ITextInputProps> = ({
   label,
   name,
   bodyProps,
-  className,
+  className = "",
+  id,
   ...props
 }) => {
+  // Generate unique ID for accessibility if none provided
+  const inputId = id || `${name}-input` || `input-${Date.now()}`;
+
+  const containerClasses = `text-input-container ${
+    bodyProps?.className || ""
+  }`.trim();
+  const inputClasses = `text-input ${className}`.trim();
+
   return (
-    <div {...bodyProps} className={`text-input-container ${className}`}>
-      {label && <label htmlFor={name}>{label}</label>}
-      <input {...props} name={name} className={`text-input ${className}`} />
+    <div {...bodyProps} className={containerClasses}>
+      {label && (
+        <label htmlFor={inputId} className="text-input-label">
+          {label}
+        </label>
+      )}
+      <input {...props} id={inputId} name={name} className={inputClasses} />
     </div>
   );
 };
