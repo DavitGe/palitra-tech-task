@@ -32,7 +32,7 @@ const SignUpForm = () => {
         <Typography color="desc" size="sm" weight="medium">
           Don't have an account?
         </Typography>
-        <Typography color="main" size="sm" weight="medium">
+        <Typography color="main" size="sm" weight="medium" clickable>
           Sign up for free
         </Typography>
       </div>

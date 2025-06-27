@@ -11,6 +11,7 @@ interface ITypographyProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: "main" | "primary" | "label" | "placeholder" | "desc";
   align?: "left" | "center" | "right";
   font?: "Poppins" | "FiraGO";
+  clickable?: boolean;
 }
 
 const Typography: React.FC<ITypographyProps> = ({
@@ -20,6 +21,7 @@ const Typography: React.FC<ITypographyProps> = ({
   color = "primary",
   align = "left",
   font = "Poppins",
+  clickable = false,
   style,
   ...props
 }) => {
@@ -27,6 +29,7 @@ const Typography: React.FC<ITypographyProps> = ({
     fontSize: TypographySize[size],
     color: TypographyColor[color],
     fontWeight: TypographyWeight[weight],
+    cursor: clickable ? "pointer" : "default",
     textAlign: align,
     fontFamily:
       font === "Poppins" ? "Poppins, sans-serif" : "FiraGO, sans-serif",
