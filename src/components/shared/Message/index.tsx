@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Typography from "../Typography";
 import CheckCircle from "../icons/CheckCircle";
 import XCircle from "../icons/XCircle";

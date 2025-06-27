@@ -103,7 +103,7 @@ export const Interactive: Story = {
       <Checkbox
         {...args}
         checked={checked}
-        onChange={(newChecked) => setChecked(newChecked)}
+        onChange={(event) => setChecked(event.target.checked)}
       />
     );
   },
