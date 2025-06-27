@@ -76,7 +76,7 @@ const SignUpForm = () => {
     <div className="sign-up-form">
       <header className="sign-up-form-header">
         <Typography size="xl" weight="medium">
-          Welcome back
+          WELCOME BACK
         </Typography>
         <Typography color="desc">
           Welcome back! Please enter your details.
