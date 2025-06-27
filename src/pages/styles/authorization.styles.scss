@@ -1,3 +1,6 @@
+// Breakpoint constant for maintainability
+$mobile-breakpoint: 700px;
+
 .authorization-container {
   display: flex;
   width: 100%;
@@ -8,13 +11,11 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    flex: 1;
+    width: auto;
 
-    &.with-image {
-      flex: 1;
-      width: auto;
-    }
-
-    &.without-image {
+    // On mobile, take full width
+    @media (max-width: #{$mobile-breakpoint - 1px}) {
       flex: auto;
       width: 100%;
     }
@@ -30,5 +31,10 @@
     background-image: url(/images/auth-img.jpg);
     background-size: cover;
     background-position: center;
+
+    // Hide image on mobile
+    @media (max-width: #{$mobile-breakpoint - 1px}) {
+      display: none;
+    }
   }
 }

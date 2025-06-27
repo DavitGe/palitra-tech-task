@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  TypographySize,
-  TypographyColor,
-  TypographyWeight,
-} from "./TypographyEnums";
+import "./Typography.scss";
 
 interface ITypographyProps extends React.HTMLAttributes<HTMLSpanElement> {
   weight?: "light" | "regular" | "medium";
@@ -21,24 +17,26 @@ const Typography: React.FC<ITypographyProps> = ({
   color = "primary",
   align = "left",
   font = "Poppins",
-  style,
   clickable = false,
+  className = "",
+  style,
   ...props
 }) => {
-  const typographyStyle: React.CSSProperties = {
-    fontSize: TypographySize[size],
-    color: TypographyColor[color],
-    fontWeight: TypographyWeight[weight],
-    cursor: clickable ? "pointer" : "default",
-    textAlign: align,
-    fontFamily:
-      font === "Poppins" ? "Poppins, sans-serif" : "FiraGO, sans-serif",
-    letterSpacing: "0.03em",
-    ...style,
-  };
+  const typographyClasses = [
+    "typography",
+    `typography--size-${size}`,
+    `typography--color-${color}`,
+    `typography--weight-${weight}`,
+    `typography--align-${align}`,
+    `typography--font-${font.toLowerCase()}`,
+    clickable && "typography--clickable",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <span {...props} style={typographyStyle}>
+    <span {...props} className={typographyClasses} style={style}>
       {children}
     </span>
   );

@@ -5,19 +5,34 @@ import type {
 } from "../types/auth.types";
 import { setCookie, COOKIE_NAMES } from "./cookies";
 
+// Constants
+const API_CONFIG = {
+  LOGIN_URL: "https://dummyjson.com/user/login",
+  DEFAULT_EXPIRES_IN_MINS: 30,
+  ACCESS_TOKEN_DAYS: 7,
+  REFRESH_TOKEN_DAYS: 30,
+  USER_INFO_DAYS: 7,
+} as const;
+
+const ERROR_MESSAGES = {
+  NETWORK_ERROR: "Network error: Please check your internet connection",
+  PARSE_ERROR: "Server error: Unable to process response",
+  UNKNOWN_ERROR: "Unknown error occurred",
+} as const;
+
 export async function signInHandler(credentials: LoginCredentials): Promise<{
   success: boolean;
   user?: UserInfo;
   error?: string;
 }> {
   try {
-    const response = await fetch("https://dummyjson.com/user/login", {
+    const response = await fetch(API_CONFIG.LOGIN_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: credentials.username,
         password: credentials.password,
-        expiresInMins: 30, // optional, defaults to 60
+        expiresInMins: API_CONFIG.DEFAULT_EXPIRES_IN_MINS,
       }),
     });
 
@@ -27,9 +42,7 @@ export async function signInHandler(credentials: LoginCredentials): Promise<{
       responseData = await response.json();
     } catch (parseError) {
       // If we can't parse the response, return a generic error
-      throw new Error(
-        `Server error: Unable to process response (${response.status})`
-      );
+      throw new Error(`${ERROR_MESSAGES.PARSE_ERROR} (${response.status})`);
     }
 
     if (!response.ok) {
@@ -44,8 +57,16 @@ export async function signInHandler(credentials: LoginCredentials): Promise<{
     const authData: AuthResponse = responseData;
 
     // Store tokens in cookies
-    setCookie(COOKIE_NAMES.ACCESS_TOKEN, authData.accessToken, 7); // 7 days
-    setCookie(COOKIE_NAMES.REFRESH_TOKEN, authData.refreshToken, 30); // 30 days
+    setCookie(
+      COOKIE_NAMES.ACCESS_TOKEN,
+      authData.accessToken,
+      API_CONFIG.ACCESS_TOKEN_DAYS
+    );
+    setCookie(
+      COOKIE_NAMES.REFRESH_TOKEN,
+      authData.refreshToken,
+      API_CONFIG.REFRESH_TOKEN_DAYS
+    );
 
     // Store user info in cookies
     const userInfo: UserInfo = {
@@ -58,7 +79,11 @@ export async function signInHandler(credentials: LoginCredentials): Promise<{
       image: authData.image,
     };
 
-    setCookie(COOKIE_NAMES.USER_INFO, JSON.stringify(userInfo), 7);
+    setCookie(
+      COOKIE_NAMES.USER_INFO,
+      JSON.stringify(userInfo),
+      API_CONFIG.USER_INFO_DAYS
+    );
 
     return {
       success: true,
@@ -71,13 +96,14 @@ export async function signInHandler(credentials: LoginCredentials): Promise<{
     if (error instanceof TypeError && error.message.includes("fetch")) {
       return {
         success: false,
-        error: "Network error: Please check your internet connection",
+        error: ERROR_MESSAGES.NETWORK_ERROR,
       };
     }
 
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
+      error:
+        error instanceof Error ? error.message : ERROR_MESSAGES.UNKNOWN_ERROR,
     };
   }
 }

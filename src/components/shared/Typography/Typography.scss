@@ -1,0 +1,80 @@
+.typography {
+  letter-spacing: 0.03em;
+
+  // Sizes
+  &--size-xs {
+    font-size: 10px;
+  }
+  &--size-sm {
+    font-size: 12px;
+  }
+  &--size-md {
+    font-size: 14px;
+  }
+  &--size-lg {
+    font-size: 16px;
+  }
+  &--size-xl {
+    font-size: 34px;
+  }
+
+  // Colors
+  &--color-main {
+    color: #ea454c;
+  }
+  &--color-primary {
+    color: #030303;
+  }
+  &--color-label {
+    color: #181818;
+  }
+  &--color-placeholder {
+    color: #636364;
+  }
+  &--color-desc {
+    color: #595959;
+  }
+
+  // Weights
+  &--weight-light {
+    font-weight: 300;
+  }
+  &--weight-regular {
+    font-weight: 400;
+  }
+  &--weight-medium {
+    font-weight: 500;
+  }
+
+  // Alignment
+  &--align-left {
+    text-align: left;
+  }
+  &--align-center {
+    text-align: center;
+  }
+  &--align-right {
+    text-align: right;
+  }
+
+  // Fonts
+  &--font-poppins {
+    font-family: "Poppins", sans-serif;
+  }
+  &--font-firago {
+    font-family: "FiraGO", sans-serif;
+  }
+
+  // Clickable state
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+}

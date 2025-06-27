@@ -7,10 +7,29 @@ import { signInHandler } from "./utils/signIn";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Constants
+const FORM_FIELDS = {
+  USERNAME: "username",
+  PASSWORD: "password",
+} as const;
+
+const ERROR_MESSAGES = {
+  REQUIRED_FIELDS: "Please enter both username and password",
+  LOGIN_FAILED: "Login failed",
+  UNEXPECTED_ERROR: "An unexpected error occurred",
+} as const;
+
 const SignUpForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const validateForm = (username: string, password: string): string | null => {
+    if (!username.trim() || !password.trim()) {
+      return ERROR_MESSAGES.REQUIRED_FIELDS;
+    }
+    return null;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,8 +37,8 @@ const SignUpForm = () => {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get("username") as string;
-    const password = formData.get("password") as string;
+    const username = formData.get(FORM_FIELDS.USERNAME) as string;
+    const password = formData.get(FORM_FIELDS.PASSWORD) as string;
 
     const credentials = {
       username: username || "",
@@ -27,8 +46,12 @@ const SignUpForm = () => {
     };
 
     // Client-side validation
-    if (!credentials.username.trim() || !credentials.password.trim()) {
-      setError("Please enter both username and password");
+    const validationError = validateForm(
+      credentials.username,
+      credentials.password
+    );
+    if (validationError) {
+      setError(validationError);
       setIsLoading(false);
       return;
     }
@@ -37,13 +60,12 @@ const SignUpForm = () => {
       const result = await signInHandler(credentials);
 
       if (result.success) {
-        // Navigate to catalog page instead of reloading
         navigate("/app/catalog");
       } else {
-        setError(result.error || "Login failed");
+        setError(result.error || ERROR_MESSAGES.LOGIN_FAILED);
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      setError(ERROR_MESSAGES.UNEXPECTED_ERROR);
       console.error("Login error:", error);
     } finally {
       setIsLoading(false);
@@ -52,55 +74,85 @@ const SignUpForm = () => {
 
   return (
     <div className="sign-up-form">
-      <div className="sign-up-form-header">
+      <header className="sign-up-form-header">
         <Typography size="xl" weight="medium">
           Welcome back
         </Typography>
         <Typography color="desc">
           Welcome back! Please enter your details.
         </Typography>
-      </div>
-      <form onSubmit={handleSubmit}>
+      </header>
+
+      <form onSubmit={handleSubmit} noValidate>
         <TextInput
-          name="username"
-          label="username"
+          name={FORM_FIELDS.USERNAME}
+          label="Username"
           placeholder="Enter your username"
+          autoComplete="username"
           required
+          aria-describedby={error ? "error-message" : undefined}
         />
+
         <TextInput
-          name="password"
+          name={FORM_FIELDS.PASSWORD}
           type="password"
-          label="password"
+          label="Password"
           placeholder="Enter your password"
+          autoComplete="current-password"
           required
+          aria-describedby={error ? "error-message" : undefined}
         />
+
         {error && (
-          <div style={{ color: "red", fontSize: "14px", marginBottom: "10px" }}>
+          <div
+            id="error-message"
+            className="error-message"
+            role="alert"
+            aria-live="polite"
+          >
             {error}
           </div>
         )}
+
         <div className="sign-up-form-remember">
-          <Checkbox label="Remember me" />
-          <Typography color="label" size="sm" weight="medium">
+          <Checkbox label="Remember me" name="remember" />
+          <Typography
+            color="label"
+            size="sm"
+            weight="medium"
+            clickable
+            role="button"
+            tabIndex={0}
+          >
             Forgot password
           </Typography>
         </div>
+
         <Button
+          type="submit"
           colorType="main"
-          style={{ marginTop: "-14px" }}
           disabled={isLoading}
+          aria-describedby={isLoading ? "loading-state" : undefined}
         >
           {isLoading ? "Signing in..." : "Sign in"}
         </Button>
       </form>
-      <div className="sign-up-form-footer">
+
+      <footer className="sign-up-form-footer">
         <Typography color="desc" size="sm" weight="medium">
           Don't have an account?
         </Typography>
-        <Typography color="main" size="sm" weight="medium" clickable>
+        <Typography
+          color="main"
+          size="sm"
+          weight="medium"
+          clickable
+          role="button"
+          tabIndex={0}
+        >
           Sign up for free
         </Typography>
-      </div>
+      </footer>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import { getButtonColor } from "./utils/getButtonColor";
 import "./button.styles.scss";
 
 export interface IButtonProps
@@ -10,15 +9,13 @@ export interface IButtonProps
 const Button: React.FC<IButtonProps> = ({
   children,
   colorType = "main",
-  style,
+  className = "",
   ...props
 }) => {
+  const buttonClasses = `button button--${colorType} ${className}`.trim();
+
   return (
-    <button
-      {...props}
-      className={`button ${props.className}`}
-      style={{ ...getButtonColor(colorType), ...style }}
-    >
+    <button {...props} className={buttonClasses}>
       {children}
     </button>
   );

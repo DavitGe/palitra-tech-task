@@ -12,7 +12,13 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
-  // Option 1: Opacity-based (subtle)
+  // Color variants
+  &--main {
+    color: white;
+    background-color: #ea454c;
+  }
+
+  // Hover and active states
   &:hover {
     opacity: 0.8;
   }
@@ -20,44 +26,6 @@
   &:active {
     opacity: 0.6;
   }
-
-  // Option 2: Scale effect (uncomment to use)
-  // &:hover {
-  //   transform: scale(1.02);
-  // }
-
-  // &:active {
-  //   transform: scale(0.98);
-  // }
-
-  // Option 3: Brightness filter (works with any background)
-  // &:hover {
-  //   filter: brightness(1.1);
-  // }
-
-  // &:active {
-  //   filter: brightness(0.9);
-  // }
-
-  // Option 4: Shadow + slight scale
-  // &:hover {
-  //   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  //   transform: scale(1.01);
-  // }
-
-  // &:active {
-  //   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  //   transform: scale(0.99);
-  // }
-
-  // Option 5: Border glow (focus-friendly)
-  // &:hover {
-  //   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
-  // }
-
-  // &:active {
-  //   box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.5);
-  // }
 
   // Focus state (accessible)
   &:focus-visible {
